@@ -4,7 +4,7 @@
 	import { World } from '@threlte/rapier';
 	import Scene from '$lib/Scene/Scene.svelte';
 	import UI from '$lib/UI.svelte';
-	import Actor from '$lib/Actor/Actor.svelte';
+	// import Actor from '$lib/Actor/Actor.svelte';
 
 	let playing = false;
 	let delayed = true;
