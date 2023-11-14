@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Debug } from '@threlte/rapier';
+	// import { Debug } from '@threlte/rapier';
 	import Player from '../Player/Player.svelte';
 	import Light from '../Light/Light.svelte';
 	import Terrain from '../Terrain/Terrain.svelte';
@@ -19,10 +19,10 @@
 		Effect
 	} from 'postprocessing';
 	import Fireflies from '../Fireflies/Fireflies.svelte';
-	import Sky from '../Sky/Sky.svelte';
-	import Music from '../Music/Music.svelte';
+	// import Sky from '../Sky/Sky.svelte';
+	// import Music from '../Music/Music.svelte';
 	import { rendererStore } from './rendererStore';
-	import Face from '$lib/Face/Face.svelte';
+	// import Face from '$lib/Face/Face.svelte';
 
 	const { scene, renderer, camera, size } = useThrelte();
 
