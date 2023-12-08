@@ -3,7 +3,6 @@
 	import { T } from "@threlte/core";
 	import { useGltf } from "@threlte/extras";
 	import GrassBlade from "./Materials/GrassBlade/GrassBlade.svelte";
-	import Player from "./Player.svelte";
 	import Tree from "./Materials/Tree/Tree.svelte";
 
 	const gltf = useGltf("/Terrain.glb");
@@ -34,4 +33,3 @@
 		<GrassBlade />
 	</T.Mesh>
 {/await}
-<Player position={[0, 10, 28]} />

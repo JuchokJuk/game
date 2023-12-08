@@ -23,6 +23,7 @@
 	} from "postprocessing";
 	import Sword from "./Sword.svelte";
 	import { renderer as rendererStore } from "$lib/stores/renderer";
+	import Player from "./Player.svelte";
 
 	const { scene, renderer, camera, size } = useThrelte();
 	$rendererStore = renderer;
@@ -71,6 +72,7 @@
 	});
 </script>
 
+<Player position={[0, 0, 28]} />
 <Terrain />
 <Fireflies />
 <Light />

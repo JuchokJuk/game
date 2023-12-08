@@ -44,13 +44,19 @@
 		duration: 800
 	});
 	$: tweenedProgress.set($progress);
+
+	$: if ($progress === 1) {
+		gravity = [0, -9.81, 0];
+	}
+
+	let gravity: [number, number, number] = [0, 0, 0];
 </script>
 
 <svelte:document on:pointerlockchange={lockChangeAlert} />
 
 <div class="canvas" class:blurred={$UIstore === "waiting"}>
 	<Canvas>
-		<World>
+		<World {gravity}>
 			<Scene />
 			<!-- <Debug/> -->
 		</World>
