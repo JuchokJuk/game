@@ -1,13 +1,10 @@
 <script lang="ts">
 	import { AutoColliders } from "@threlte/rapier";
-	import { Group } from "three";
 	import { T } from "@threlte/core";
 	import { useGltf } from "@threlte/extras";
 	import GrassBlade from "./Materials/GrassBlade/GrassBlade.svelte";
-	import Tree from "./Materials/Tree/Tree.svelte";
 	import Player from "./Player.svelte";
-
-	export const ref = new Group();
+	import Tree from "./Materials/Tree/Tree.svelte";
 
 	const gltf = useGltf("/Terrain.glb");
 </script>
@@ -36,5 +33,5 @@
 	<T.Mesh geometry={gltf.nodes.Ground_mesh_2.geometry} receiveShadow>
 		<GrassBlade />
 	</T.Mesh>
-	<Player position={[0, 0, 28]} />
 {/await}
+<Player position={[0, 10, 28]} />

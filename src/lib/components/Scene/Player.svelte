@@ -6,7 +6,7 @@
 	import SecondOrderDynamics from "../SecondOrderDynamics";
 	import { AudioListener } from "@threlte/extras";
 	import { playerController } from "$lib/stores/playerController";
-	import { UI } from "$lib/stores/UI";
+	// import { UI } from "$lib/stores/UI";
 
 	export let position: [number, number, number];
 
@@ -17,7 +17,7 @@
 	const extraFovAnimation = new SecondOrderDynamics(3, 1, 0);
 
 	const walkingSpeed = 8;
-	const jumStrength = 3;
+	const jumStrength = 6;
 
 	let rigidBody: RapierRigidBody;
 
@@ -80,12 +80,6 @@
 	});
 
 	let grounded = false;
-	let groundsSensored = 0;
-
-	$: {
-		if (groundsSensored === 0) grounded = false;
-		else grounded = true;
-	}
 </script>
 
 <T.Group {position}>
@@ -96,9 +90,9 @@
 			quaternion={[rotation.x, rotation.y, rotation.z, rotation.w]}
 			position={[0, 0.75 + shakingStrength * Math.sin(time * 12) * 0.003, 0]}
 		>
-			{#if $UI === "playing"}
-				<AudioListener />
-			{/if}
+			<!-- {#if $UI === "playing"} -->
+			<AudioListener />
+			<!-- {/if} -->
 		</T.PerspectiveCamera>
 		<Collider shape={"capsule"} args={[0.5, 0.5]} />
 
@@ -107,8 +101,8 @@
 				shape={"ball"}
 				args={[0.25]}
 				sensor
-				on:sensorenter={() => (groundsSensored += 1)}
-				on:sensorexit={() => (groundsSensored -= 1)}
+				on:sensorenter={() => (grounded = true)}
+				on:sensorexit={() => (grounded = false)}
 			/>
 		</T.Group>
 	</RigidBody>

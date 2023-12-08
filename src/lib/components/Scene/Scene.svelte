@@ -21,8 +21,11 @@
 
 		// DepthOfFieldEffect
 	} from "postprocessing";
+	import Sword from "./Sword.svelte";
+	import { renderer as rendererStore } from "$lib/stores/renderer";
 
 	const { scene, renderer, camera, size } = useThrelte();
+	$rendererStore = renderer;
 
 	// scene.background = new Color("rgb(102, 102, 204)");
 	// scene.fog = new Fog("rgb(102, 102, 204)", 0, 64);
@@ -56,25 +59,8 @@
 				})
 			)
 		);
-		composer.addPass(
-			new EffectPass(
-				camera,
-				new Effect(
-					"custom",
-					chromaticAberration
-				)
-			)
-		);
-		composer.addPass(
-			new EffectPass(
-				camera,
-				new Effect(
-					"custom",
-					grain
-					// { uniforms: new Map([['index', new Uniform(1)]]) }
-				)
-			)
-		);
+		composer.addPass(new EffectPass(camera, new Effect("custom", grain)));
+		composer.addPass(new EffectPass(camera, new Effect("custom", chromaticAberration)));
 	}
 
 	$: setupEffectComposer($camera);
@@ -89,3 +75,4 @@
 <Fireflies />
 <Light />
 <Sky />
+<Sword />

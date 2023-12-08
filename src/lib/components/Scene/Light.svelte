@@ -4,7 +4,7 @@
 
 <T.AmbientLight color={[1, 1, 1]} intensity={0.1} />
 <T.PointLight
-	position={[32, 32, 32]}
+	position={[32, 32, -32]}
 	color={[1, 1, 1]}
 	intensity={1000}
 	shadow.camera.far={128}

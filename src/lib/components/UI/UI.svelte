@@ -6,6 +6,7 @@
 	import { clamp } from "../clamp";
 	import { joystick } from "$lib/stores/joystick";
 	import { playerController } from "$lib/stores/playerController";
+	import { scale } from "svelte/transition";
 
 	export let pause: () => void;
 
@@ -22,20 +23,25 @@
 
 <svelte:window on:pointermove={onPointerMove} />
 
-<div class="UI">
-	{#if $touchScreen}
-		<TouchControls {pause} />
-	{:else}
-		<KeyboardControls />
-	{/if}
-</div>
+{#if $touchScreen}
+	<TouchControls {pause} />
+{:else}
+	<KeyboardControls />
+{/if}
+<div class="cursor" transition:scale|global={{ duration: 400 }} />
 
 <style lang="scss">
-	.UI {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
+	.cursor {
+		background-color: white;
+
+		mix-blend-mode: difference;
+		width: 4px;
+		height: 4px;
+		border-radius: 2px;
+
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 	}
 </style>

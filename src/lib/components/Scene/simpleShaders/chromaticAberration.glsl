@@ -9,5 +9,4 @@ void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor)
 	outputColor.r  = texture(inputBuffer, barrelDistortion(uv, -8.)).r;
 	outputColor.g  = texture(inputBuffer, barrelDistortion(uv, -1.)).g;
 	outputColor.ba = texture(inputBuffer, barrelDistortion(uv, -8.)).ba;
-
 }

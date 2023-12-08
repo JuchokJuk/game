@@ -9,11 +9,12 @@
 	import { World } from "@threlte/rapier";
 	import { useProgress } from "@threlte/extras";
 	import { tweened } from "svelte/motion";
+	import { renderer } from "$lib/stores/renderer";
 
 	let delayed = true;
 
 	function play() {
-		document.documentElement.requestPointerLock();
+		$renderer.domElement.requestPointerLock();
 		document.documentElement.requestFullscreen();
 
 		$UIstore = "playing";
@@ -26,7 +27,7 @@
 	}
 
 	function lockChangeAlert() {
-		if (document.pointerLockElement === document.documentElement) {
+		if (document.pointerLockElement === $renderer.domElement) {
 			$UIstore = "playing";
 			delayed = false;
 		} else {

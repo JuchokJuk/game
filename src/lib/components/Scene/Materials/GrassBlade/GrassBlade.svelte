@@ -4,6 +4,7 @@
 
 	import fragmentShader from "./glitchShaders/fragmentShader.glsl?raw";
 	import vertexShader from "./glitchShaders/vertexShader.glsl?raw";
+	import { volume } from "$lib/stores/volume";
 
 	let time = 0;
 
@@ -19,6 +20,6 @@
 	{vertexShader}
 	{fragmentShader}
 	{uniforms}
-	uniforms.time.value={time}
+	uniforms.time.value={time + $volume * 2}
 	fog
 />
