@@ -7,6 +7,7 @@
 
 	// import noise from "./simpleShaders/noise.glsl?raw";
 	import grain from "./simpleShaders/grain.glsl?raw";
+	import chromaticAberration from "./simpleShaders/chromaticAberration.glsl?raw";
 
 	import { useThrelte } from "@threlte/core";
 	import { useRender } from "@threlte/core";
@@ -53,6 +54,15 @@
 					radius: 0.85,
 					levels: 4
 				})
+			)
+		);
+		composer.addPass(
+			new EffectPass(
+				camera,
+				new Effect(
+					"custom",
+					chromaticAberration
+				)
 			)
 		);
 		composer.addPass(

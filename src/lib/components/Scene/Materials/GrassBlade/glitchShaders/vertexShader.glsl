@@ -103,7 +103,7 @@ void main() {
 
   vec2 coord = position.xz;
   
-  float speed = 0.2;
+  float speed = 0.1;
   float noiseTime = time * speed;
 
   float noiseScale = 0.016;
@@ -116,7 +116,7 @@ void main() {
   ));
 
   mvPosition_.x += noiseStrength * sin(noise * TWOPI) * (0.5*uv.y-0.5);
-  mvPosition_.z += noiseStrength * sin(noise * TWOPI) * (0.5*uv.y-0.5);
+  mvPosition_.z += noiseStrength * cos(noise * TWOPI) * (0.5*uv.y-0.5);
 
   vec4 modelViewPosition = modelViewMatrix * mvPosition_;
   gl_Position = projectionMatrix * modelViewPosition;

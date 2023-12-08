@@ -73,10 +73,10 @@
 
 		extraFov = extraFovAnimation.update(delta, horizontalWalkLinvelLength * 0.5);
 
-		// if (grounded) {
+		if (grounded) {
 			jumpImpulse.set(0, $playerController.jump ? jumStrength : 0, 0);
 			rigidBody.applyImpulse(jumpImpulse, true);
-		// }
+		}
 	});
 
 	let grounded = false;
