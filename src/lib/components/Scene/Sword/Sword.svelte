@@ -79,18 +79,17 @@
 {#await gltf then gltf}
 	<T.Group
 		position={[0, $tweenedY, 0]}
-		rotation={[$swordRotation, $swordRotation + 1, $swordRotation]}
+		rotation={[$swordRotation, $swordRotation, $swordRotation]}
+		scale={[1 + $volume, 1 + $volume, 1 + $volume]}
 		on:click={toggle}
 	>
 		<T.Mesh
 			geometry={gltf.nodes.Sword_mesh.geometry}
 			material={gltf.materials.Metal}
-			scale={[1 + $volume, 1 + $volume, 1 + $volume]}
 		/>
 		<T.Mesh
 			geometry={gltf.nodes.Sword_mesh_1.geometry}
 			material={gltf.materials.Handle}
-			scale={[1 + $volume, 1 + $volume, 1 + $volume]}
 		/>
 
 		{#if $musicStarted}
