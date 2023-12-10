@@ -9,8 +9,6 @@
 	import { musicStarted } from "$lib/stores/musicStarted";
 	import SwordSound from "./SwordSound.svelte";
 	import { swordRotation } from "$lib/stores/swordRotation";
-	import { UI } from "$lib/stores/UI";
-	import { AudioListener } from "@threlte/extras";
 
 	const gltf = useGltf("models/Sword.glb");
 
@@ -81,7 +79,7 @@
 {#await gltf then gltf}
 	<T.Group
 		position={[0, $tweenedY, 0]}
-		rotation={[$swordRotation, $swordRotation+1, $swordRotation]}
+		rotation={[$swordRotation, $swordRotation + 1, $swordRotation]}
 		on:click={toggle}
 	>
 		<T.Mesh
@@ -94,12 +92,6 @@
 			material={gltf.materials.Handle}
 			scale={[1 + $volume, 1 + $volume, 1 + $volume]}
 		/>
-
-		<T.PerspectiveCamera makeDefault position={[0, 0.5, 20]}>
-			{#if $UI === "playing"}
-				<AudioListener />
-			{/if}
-		</T.PerspectiveCamera>
 
 		{#if $musicStarted}
 			<SwordSound />

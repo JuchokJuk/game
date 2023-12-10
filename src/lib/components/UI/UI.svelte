@@ -28,20 +28,20 @@
 {:else}
 	<KeyboardControls />
 {/if}
-<!-- <div class="cursor" transition:scale|global={{ duration: 400 }} /> -->
+<div class="cursor" transition:scale|global={{ duration: 400 }} />
 
 <style lang="scss">
-	// .cursor {
-	// 	background-color: white;
+	.cursor {
+		background-color: white;
 
-	// 	mix-blend-mode: difference;
-	// 	width: 4px;
-	// 	height: 4px;
-	// 	border-radius: 2px;
+		mix-blend-mode: difference;
+		width: 4px;
+		height: 4px;
+		border-radius: 2px;
 
-	// 	position: fixed;
-	// 	top: 50%;
-	// 	left: 50%;
-	// 	transform: translate(-50%, -50%);
-	// }
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
 </style>

@@ -18,8 +18,8 @@
 		EffectPass,
 		RenderPass,
 		BloomEffect,
-		Effect,
-		DepthOfFieldEffect
+		Effect
+		// DepthOfFieldEffect
 	} from "postprocessing";
 	import Sword from "./Sword/Sword.svelte";
 	import { renderer as rendererStore } from "$lib/stores/renderer";
@@ -72,7 +72,7 @@
 	});
 </script>
 
-<!-- <Player position={[0, 0, 28]} /> -->
+<Player position={[0, 0, 28]} />
 <Terrain />
 <Fireflies />
 <Light />

@@ -91,10 +91,6 @@
 		&.blurred {
 			filter: blur(8px);
 		}
-
-		// :global(canvas) {
-		// 	filter: hue-rotate(150deg);
-		// }
 	}
 
 	.overlay {
