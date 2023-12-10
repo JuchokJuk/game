@@ -127,12 +127,14 @@
 	}
 	.bar-wrapper {
 		width: 256px;
-		height: 16px;
-		border: 2px solid $white;
+		height: 4px;
+		background: rgba($white, 0.5);
+		overflow: hidden;
+		border-radius: 2px;
 		position: relative;
 	}
 	.bar {
 		height: 100%;
-		background-color: $white;
+		background: $white;
 	}
 </style>

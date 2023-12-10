@@ -3,6 +3,7 @@
 	import Terrain from "./Terrain.svelte";
 	import Fireflies from "./Fireflies/Fireflies.svelte";
 	import Sky from "./Sky/Sky.svelte";
+	// import { Color, type Camera, Fog } from "three";
 	import type { Camera } from "three";
 
 	// import noise from "./simpleShaders/noise.glsl?raw";
@@ -17,11 +18,10 @@
 		EffectPass,
 		RenderPass,
 		BloomEffect,
-		Effect
-
-		// DepthOfFieldEffect
+		Effect,
+		DepthOfFieldEffect
 	} from "postprocessing";
-	import Sword from "./Sword.svelte";
+	import Sword from "./Sword/Sword.svelte";
 	import { renderer as rendererStore } from "$lib/stores/renderer";
 	import Player from "./Player.svelte";
 
@@ -29,7 +29,7 @@
 	$rendererStore = renderer;
 
 	// scene.background = new Color("rgb(102, 102, 204)");
-	// scene.fog = new Fog("rgb(102, 102, 204)", 0, 64);
+	// scene.fog = new Fog("rgb(102, 102, 204)", 0, 32);
 
 	const composer = new EffectComposer(renderer);
 
@@ -41,9 +41,9 @@
 		// 		camera,
 		// 		new DepthOfFieldEffect(camera, {
 		// 			focusDistance: 0.0,
-		// 			focusRange: 0.1,
+		// 			focusRange: 0.01,
 		// 			bokehScale: 4,
-		// 			resolutionScale: 0.5
+		// 			resolutionScale: 0.5,
 		// 		})
 		// 	)
 		// );
@@ -72,7 +72,7 @@
 	});
 </script>
 
-<Player position={[0, 0, 28]} />
+<!-- <Player position={[0, 0, 28]} /> -->
 <Terrain />
 <Fireflies />
 <Light />

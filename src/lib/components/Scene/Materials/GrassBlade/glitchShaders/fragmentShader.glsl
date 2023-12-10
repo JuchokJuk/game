@@ -1,5 +1,6 @@
 varying vec2 vUv;
 uniform float time;
+uniform float sound;
 varying vec3 position_;
 
 #define TWOPI 6.28318530718
@@ -94,7 +95,7 @@ vec3 palette( float t ) {
 void main() {	
 	vec2 uv = (position_.xz - 0.5) * 0.008;
 
-    float noiseDisplace = snoise(vec3(uv*40., time*0.5));
+    float noiseDisplace = snoise(vec3(uv*40., (sound + time)*0.5));
 
     uv = vec2(
         uv.x + 0.01 * sin(noiseDisplace * TWOPI),
@@ -110,9 +111,9 @@ void main() {
 
         float d = length(uv*uv) * exp(-length(uv0));
 
-        vec3 col = palette(length(uv0) + i*.6 - time*1.6*0.1);
+        vec3 col = palette(length(uv0) + i*.6 - (sound + time)*1.6*0.1);
 
-        d = sin(d*16. - time*0.1)/16.;
+        d = sin(d*16. - (sound + time)*0.1)/16.;
         d = abs(d);
 
         d = pow(0.1 / d, 0.5)/0.8;

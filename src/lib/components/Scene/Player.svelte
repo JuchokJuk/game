@@ -6,7 +6,9 @@
 	import SecondOrderDynamics from "../SecondOrderDynamics";
 	import { AudioListener } from "@threlte/extras";
 	import { playerController } from "$lib/stores/playerController";
-	// import { UI } from "$lib/stores/UI";
+	import { UI } from "$lib/stores/UI";
+	import { swordRotation } from "$lib/stores/swordRotation";
+	import { volume } from "$lib/stores/volume";
 
 	export let position: [number, number, number];
 
@@ -84,16 +86,16 @@
 
 <T.Group {position}>
 	<RigidBody bind:rigidBody enabledRotations={[false, false, false]} gravityScale={2}>
-		<T.PerspectiveCamera
+		<!-- <T.PerspectiveCamera
 			makeDefault
 			fov={startFov + extraFov}
 			quaternion={[rotation.x, rotation.y, rotation.z, rotation.w]}
 			position={[0, 0.75 + shakingStrength * Math.sin(time * 12) * 0.003, 0]}
 		>
-			<!-- {#if $UI === "playing"} -->
-			<AudioListener />
-			<!-- {/if} -->
-		</T.PerspectiveCamera>
+			{#if $UI === "playing"}
+				<AudioListener />
+			{/if}
+		</T.PerspectiveCamera> -->
 		<Collider shape={"capsule"} args={[0.5, 0.5]} />
 
 		<T.Group position.y={-0.875}>

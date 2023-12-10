@@ -8,7 +8,13 @@
 
 	let time = 0;
 
-	const uniforms = UniformsUtils.merge([UniformsLib.fog, { time: { value: time } }]);
+	const uniforms = UniformsUtils.merge([
+		UniformsLib.fog,
+		{
+			time: { value: time },
+			sound: { value: 0 }
+		}
+	]);
 
 	useFrame(({ clock }) => {
 		time = clock.getElapsedTime();
@@ -20,6 +26,7 @@
 	{vertexShader}
 	{fragmentShader}
 	{uniforms}
-	uniforms.time.value={time + $volume * 2}
+	uniforms.time.value={time}
+	uniforms.sound.value={$volume * 2}
 	fog
 />
