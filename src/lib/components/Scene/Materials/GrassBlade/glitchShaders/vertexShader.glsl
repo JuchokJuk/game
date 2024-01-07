@@ -1,7 +1,6 @@
 varying vec2 vUv;
 varying vec3 position_;
 uniform float time;
-#include <fog_pars_vertex>
 
 #define TWOPI 6.28318530718
 
@@ -86,7 +85,6 @@ float snoise(vec3 v) {
 void main() {
   #include <begin_vertex>
   #include <project_vertex>
-  #include <fog_vertex>
 
   vUv = uv;
   position_ = position;
@@ -96,10 +94,6 @@ void main() {
   #ifdef USE_INSTANCING
     mvPosition_ = instanceMatrix * mvPosition_;
   #endif
-
-
-
-
 
   vec2 coord = position.xz;
   

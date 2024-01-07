@@ -1,5 +1,5 @@
 <script lang="ts">
-	import menuIcon from "$assets/menu.svg?raw";
+	import menuIcon from "$assets/icons/menu.svg?raw";
 	import { scale } from "svelte/transition";
 	import Button from "../Button.svelte";
 	import Joystick from "./Joystick.svelte";

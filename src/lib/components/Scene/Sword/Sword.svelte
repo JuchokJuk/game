@@ -60,8 +60,8 @@
 
 	useFrame((_ctx, delta) => {
 		if ($musicStarted) {
-			angleX = angleX + delta * 0.1;
-			angleY = angleY + delta * 0.1;
+			angleX = angleX + delta * 0.02;
+			angleY = angleY + delta * 0.02;
 		} else {
 			angleX = 0;
 			angleY = 0;

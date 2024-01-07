@@ -7,6 +7,7 @@
 	import { AudioListener } from "@threlte/extras";
 	import { playerController } from "$lib/stores/playerController";
 	import { UI } from "$lib/stores/UI";
+	import { playerPosition } from "$lib/stores/playerPosition";
 
 	export let position: [number, number, number];
 
@@ -16,20 +17,25 @@
 	let extraFov = 0;
 	const extraFovAnimation = new SecondOrderDynamics(3, 1, 0);
 
-	const walkingSpeed = 8;
+	const walkingSpeed = 5;
 	const jumStrength = 6;
+
+	let grounded = false;
 
 	let rigidBody: RapierRigidBody;
 
 	let rotation = new Quaternion();
 
+	let qx = new Quaternion();
+	let qz = new Quaternion();
+	let q = new Quaternion();
+
 	$: {
-		const qx = new Quaternion();
 		qx.setFromAxisAngle(new Vector3(0, 1, 0), $playerController.phi);
-		const qz = new Quaternion();
 		qz.setFromAxisAngle(new Vector3(1, 0, 0), $playerController.theta);
 
-		const q = new Quaternion();
+		q.set(0, 0, 0, 1);
+
 		q.multiply(qx);
 		q.multiply(qz);
 
@@ -46,12 +52,16 @@
 
 	let time = 0;
 
+	let horizontalWalkLinvelLength;
+	let rigidBodyLinvel;
+	let rigitBodyTranslation;
+
 	useFrame(({ clock }, delta) => {
 		time = clock.getElapsedTime();
 
 		if (!rigidBody) return;
 
-		const rigidBodyLinvel = rigidBody.linvel();
+		rigidBodyLinvel = rigidBody.linvel();
 
 		speedZ = -Math.sin($playerController.angle) * $playerController.speed * walkingSpeed;
 		speedX = Math.cos($playerController.angle) * $playerController.speed * walkingSpeed;
@@ -64,7 +74,7 @@
 		horizontalWalkLinvel.y = rigidBodyLinvel.y;
 		rigidBody.setLinvel(horizontalWalkLinvel, true);
 
-		const horizontalWalkLinvelLength = Math.sqrt(rigidBodyLinvel.x ** 2 + rigidBodyLinvel.z ** 2);
+		horizontalWalkLinvelLength = Math.sqrt(rigidBodyLinvel.x ** 2 + rigidBodyLinvel.z ** 2);
 
 		shakingStrength = shakingStrengthAnimation.update(
 			delta,
@@ -77,9 +87,10 @@
 			jumpImpulse.set(0, $playerController.jump ? jumStrength : 0, 0);
 			rigidBody.applyImpulse(jumpImpulse, true);
 		}
-	});
 
-	let grounded = false;
+		rigitBodyTranslation = rigidBody.translation();
+		$playerPosition = [rigitBodyTranslation.x, rigitBodyTranslation.y, rigitBodyTranslation.z];
+	});
 </script>
 
 <T.Group {position}>

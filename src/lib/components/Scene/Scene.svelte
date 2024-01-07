@@ -3,14 +3,13 @@
 	import Terrain from "./Terrain.svelte";
 	import Fireflies from "./Fireflies/Fireflies.svelte";
 	import Sky from "./Sky/Sky.svelte";
-	// import { Color, type Camera, Fog } from "three";
+	import { CapsuleGeometry, Color, MeshStandardMaterial } from "three";
 	import type { Camera } from "three";
 
-	// import noise from "./simpleShaders/noise.glsl?raw";
 	import grain from "./simpleShaders/grain.glsl?raw";
 	import chromaticAberration from "./simpleShaders/chromaticAberration.glsl?raw";
 
-	import { useThrelte } from "@threlte/core";
+	import { T, useThrelte } from "@threlte/core";
 	import { useRender } from "@threlte/core";
 
 	import {
@@ -24,12 +23,14 @@
 	import Sword from "./Sword/Sword.svelte";
 	import { renderer as rendererStore } from "$lib/stores/renderer";
 	import Player from "./Player.svelte";
+	import { initialPlayerPosition } from "$lib/constants/initialPlayerPosition";
+	import { users } from "$lib/stores/users";
+	import { AutoColliders, Collider } from "@threlte/rapier";
 
 	const { scene, renderer, camera, size } = useThrelte();
 	$rendererStore = renderer;
 
-	// scene.background = new Color("rgb(102, 102, 204)");
-	// scene.fog = new Fog("rgb(102, 102, 204)", 0, 32);
+	scene.background = new Color("rgb(102, 102, 204)");
 
 	const composer = new EffectComposer(renderer);
 
@@ -43,7 +44,7 @@
 		// 			focusDistance: 0.0,
 		// 			focusRange: 0.01,
 		// 			bokehScale: 4,
-		// 			resolutionScale: 0.5,
+		// 			resolutionScale: 0.5
 		// 		})
 		// 	)
 		// );
@@ -54,14 +55,14 @@
 					luminanceThreshold: 0.8,
 					luminanceSmoothing: 0.025,
 					mipmapBlur: true,
-					intensity: 4,
+					intensity: 2,
 					radius: 0.85,
 					levels: 4
 				})
 			)
 		);
-		composer.addPass(new EffectPass(camera, new Effect("custom", grain)));
-		composer.addPass(new EffectPass(camera, new Effect("custom", chromaticAberration)));
+		// composer.addPass(new EffectPass(camera, new Effect("custom", grain)));
+		// composer.addPass(new EffectPass(camera, new Effect("custom", chromaticAberration)));
 	}
 
 	$: setupEffectComposer($camera);
@@ -72,7 +73,15 @@
 	});
 </script>
 
-<Player position={[0, 0, 28]} />
+{#each $users as user}
+	<T.Group position={user.position}>
+		<T.Mesh geometry={new CapsuleGeometry(0.5, 1)}>
+			<T.MeshStandardMaterial color={[0.5, 0.5, 0.5]} />
+		</T.Mesh>
+	</T.Group>
+{/each}
+
+<Player position={initialPlayerPosition} />
 <Terrain />
 <Fireflies />
 <Light />

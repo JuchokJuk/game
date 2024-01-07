@@ -49,10 +49,10 @@
 
 <T.Mesh
 	rotation={[$swordRotation, $swordRotation, $swordRotation]}
-	scale={$tweenedOpacity + 0.5}
+	scale={$tweenedOpacity + 0.1}
 	position={[0, $tweenedY, 0]}
 >
-	<T.SphereGeometry args={[-20 * 10, 32]} />
+	<T.SphereGeometry args={[-64 * 10, 32]} />
 	<T.ShaderMaterial
 		{vertexShader}
 		{fragmentShader}

@@ -1,7 +1,7 @@
 vec2 barrelDistortion(vec2 coord, float amt) {
 	vec2 cc = coord - 0.5;
 	float dist = dot(cc, cc);
-	return coord + cc * (dist*dist*dist)  * amt;
+	return coord + cc * (dist * dist * dist) * amt;
 }
 
 void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {

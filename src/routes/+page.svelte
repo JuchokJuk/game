@@ -3,13 +3,14 @@
 	import Scene from "$lib/components/Scene/Scene.svelte";
 	import { UI as UIstore } from "$lib/stores/UI";
 	import { fade, scale } from "svelte/transition";
-	import playIcon from "$assets/triangle.svg?raw";
+	import playIcon from "$assets/icons/triangle.svg?raw";
 	import UI from "$lib/components/UI/UI.svelte";
 	import Button from "$lib/components/UI/Button.svelte";
 	import { World } from "@threlte/rapier";
 	import { useProgress } from "@threlte/extras";
 	import { tweened } from "svelte/motion";
 	import { renderer } from "$lib/stores/renderer";
+	import Multiplayer from "$lib/components/Multiplayer/Multiplayer.svelte";
 
 	let delayed = true;
 
@@ -26,7 +27,7 @@
 		if (document.fullscreenElement !== null) document.exitPointerLock();
 	}
 
-	function lockChangeAlert() {
+	function pointerLockChange() {
 		if (document.pointerLockElement === $renderer.domElement) {
 			$UIstore = "playing";
 			delayed = false;
@@ -52,7 +53,7 @@
 	let gravity: [number, number, number] = [0, 0, 0];
 </script>
 
-<svelte:document on:pointerlockchange={lockChangeAlert} />
+<svelte:document on:pointerlockchange={pointerLockChange} />
 
 <div class="canvas" class:blurred={$UIstore === "waiting"}>
 	<Canvas>
@@ -81,6 +82,8 @@
 	</div>
 {/if}
 
+<Multiplayer/>
+
 <style lang="scss">
 	@import "$styles/colors";
 
@@ -101,6 +104,7 @@
 		height: 100%;
 		background: $black;
 		display: flex;
+		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		transition: 0.4s background-color;
@@ -110,17 +114,6 @@
 		}
 	}
 
-	.wrapper {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		left: 0;
-		background-color: $black;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
 	.bar-wrapper {
 		width: 256px;
 		height: 4px;

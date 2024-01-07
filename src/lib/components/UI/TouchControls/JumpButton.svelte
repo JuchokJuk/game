@@ -1,5 +1,5 @@
 <script lang="ts">
-	import jumpIcon from "$assets/triangle.svg?raw";
+	import jumpIcon from "$assets/icons/triangle.svg?raw";
 	import { playerController } from "$lib/stores/playerController";
 
 	let currentTouchId: number;

@@ -26,4 +26,4 @@
 	});
 </script>
 
-<PositionalAudio autoplay bind:ref={audio} refDistance={15} src={"audio/Bullets.mp3"} />
+<PositionalAudio autoplay bind:ref={audio} refDistance={15} src={"audio/Intro.mp3"} />

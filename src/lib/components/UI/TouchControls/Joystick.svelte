@@ -125,8 +125,6 @@
 	});
 </script>
 
-<!-- todo: prevent camera rotation -->
-
 <svelte:window on:touchmove={move} on:touchend={release} on:resize={resize} />
 
 <div class="container" style={`--r: ${r}px`}>
