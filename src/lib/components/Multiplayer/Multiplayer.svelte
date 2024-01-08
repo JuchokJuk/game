@@ -18,17 +18,19 @@
 	let intervalId: NodeJS.Timeout;
 
 	let peer: Peer;
+	let UUID: string;
 
 	const actions = {
-		saveUsers: (data: User[]) => {
-			$users = data;
+		saveUsers: (data: { users: User[]; UUID: string }) => {
+			$users = data.users;
+			UUID = data.UUID;
 		},
 		addUser: (user: User) => {
 			$users.push(user);
 			$users = $users;
 		},
 		setUserPosition: (data: { UUID: string; position: [number, number, number] }) => {
-			const user = $users.find((user) => (user.UUID = data.UUID));
+			const user = $users.find((user) => user.UUID === data.UUID);
 			if (!user) return;
 			user.position = data.position;
 			$users = $users;
@@ -58,20 +60,12 @@
 			});
 		});
 
-		peer.on("error", (event: any) => {
-			console.warn("peer error", event);
-		});
-
 		peer.on("call", (mediaConnection: MediaConnection) => {
 			mediaConnection.answer(stream);
 		});
 
 		peer.on("open", (UUID: string) => {
 			socket = new WebSocket(PUBLIC_ROOM_SERVER_URL);
-
-			socket.onerror = (event) => {
-				console.warn("socket error", event);
-			};
 
 			socket.onopen = () => {
 				intervalId = setInterval(() => {
@@ -122,5 +116,5 @@
 <svelte:window on:online={reconnect} on:offline={disconnect} />
 
 {#each $users as user (user.peerUUID)}
-	<Call {peer} {stream} {user} />
+	<Call {UUID} {peer} {stream} {user} />
 {/each}

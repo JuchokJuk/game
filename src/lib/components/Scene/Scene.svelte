@@ -3,7 +3,7 @@
 	import Terrain from "./Terrain.svelte";
 	import Fireflies from "./Fireflies/Fireflies.svelte";
 	import Sky from "./Sky/Sky.svelte";
-	import { CapsuleGeometry, Color, MeshStandardMaterial } from "three";
+	import { Color, SphereGeometry } from "three";
 	import type { Camera } from "three";
 
 	import grain from "./simpleShaders/grain.glsl?raw";
@@ -16,8 +16,7 @@
 		EffectComposer,
 		EffectPass,
 		RenderPass,
-		BloomEffect,
-		Effect
+		BloomEffect
 		// DepthOfFieldEffect
 	} from "postprocessing";
 	import Sword from "./Sword/Sword.svelte";
@@ -25,7 +24,8 @@
 	import Player from "./Player.svelte";
 	import { initialPlayerPosition } from "$lib/constants/initialPlayerPosition";
 	import { users } from "$lib/stores/users";
-	import { AutoColliders, Collider } from "@threlte/rapier";
+	import White from "./Materials/White/White.svelte";
+	import { Float } from "@threlte/extras";
 
 	const { scene, renderer, camera, size } = useThrelte();
 	$rendererStore = renderer;
@@ -73,12 +73,15 @@
 	});
 </script>
 
-{#each $users as user}
-	<T.Group position={user.position}>
-		<T.Mesh geometry={new CapsuleGeometry(0.5, 1)}>
-			<T.MeshStandardMaterial color={[0.5, 0.5, 0.5]} />
+{#each $users as user (user.UUID)}
+	<Float speed={4}>
+		<T.Mesh
+			geometry={new SphereGeometry(0.5, 8, 8)}
+			position={user.position && [user.position[0], user.position[1] + 0.75, user.position[2]]}
+		>
+			<White />
 		</T.Mesh>
-	</T.Group>
+	</Float>
 {/each}
 
 <Player position={initialPlayerPosition} />

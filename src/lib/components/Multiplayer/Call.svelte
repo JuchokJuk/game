@@ -4,6 +4,7 @@
 	import type Peer from "peerjs";
 	import { onDestroy, onMount } from "svelte";
 
+	export let UUID: string;
 	export let peer: Peer;
 	export let stream: MediaStream;
 	export let user: User;
@@ -16,12 +17,12 @@
 		const mediaConnection = peer.call(user.peerUUID, stream);
 
 		const conn = peer.connect(user.peerUUID);
-        
+
 		function loop() {
 			conn.send(
 				JSON.stringify({
 					action: "setUserPosition",
-					payload: { UUID: user.UUID, position: $playerPosition }
+					payload: { UUID, position: $playerPosition }
 				})
 			);
 			requestId = requestAnimationFrame(loop);

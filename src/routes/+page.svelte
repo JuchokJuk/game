@@ -16,7 +16,7 @@
 
 	function play() {
 		$renderer.domElement.requestPointerLock();
-		document.documentElement.requestFullscreen();
+		// document.documentElement.requestFullscreen();
 
 		$UIstore = "playing";
 	}
@@ -33,7 +33,7 @@
 			delayed = false;
 		} else {
 			$UIstore = "waiting";
-			if (document.fullscreenElement !== null) document.exitFullscreen();
+			// if (document.fullscreenElement !== null) document.exitFullscreen();
 			setTimeout(() => {
 				delayed = true;
 			}, 1000);
