@@ -9,10 +9,9 @@
 	import { musicStarted } from "$lib/stores/musicStarted";
 	import SwordSound from "./SwordSound.svelte";
 	import { swordRotation } from "$lib/stores/swordRotation";
+	import { broadcast } from "$lib/utils/broadcast";
 
 	const gltf = useGltf("models/Sword.glb");
-
-	let y = 8;
 
 	const { camera } = useThrelte();
 
@@ -31,13 +30,18 @@
 
 	function toggle() {
 		if ($musicStarted) {
-			y = 8;
 			$musicStarted = false;
 		} else {
-			y = 12;
 			$musicStarted = true;
 		}
+
+		broadcast({
+			action: "toggleMusic",
+			payload: $musicStarted
+		});
 	}
+
+	let y = 8;
 
 	const tweenedY = tweened(y, {
 		duration: 800,
@@ -73,6 +77,14 @@
 
 	$: {
 		$swordRotation = Math.atan2($tweenedAngleY, $tweenedAngleX);
+	}
+
+	$: {
+		if ($musicStarted) {
+			y = 12;
+		} else {
+			y = 8;
+		}
 	}
 </script>
 

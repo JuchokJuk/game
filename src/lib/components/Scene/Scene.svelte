@@ -16,15 +16,12 @@
 	import Sword from "./Sword/Sword.svelte";
 	import { renderer as rendererStore } from "$lib/stores/renderer";
 	import Player from "./Player.svelte";
-	import { initialPlayerPosition } from "$lib/constants/initialPlayerPosition";
 	import { users } from "$lib/stores/users";
 	import White from "./Materials/White/White.svelte";
 	import { Float } from "@threlte/extras";
 
 	const { scene, renderer, camera, size } = useThrelte();
 	$rendererStore = renderer;
-
-	scene.background = new Color("rgb(102, 102, 204)");
 
 	const composer = new EffectComposer(renderer);
 
@@ -78,7 +75,7 @@
 	</Float>
 {/each}
 
-<Player position={initialPlayerPosition} />
+<Player position={[0, 0, 28]} />
 <Terrain />
 <Fireflies />
 <Light />

@@ -11,54 +11,35 @@
 
 	let time = 0;
 
-	let uniforms = {
+	const tweenedGlitchiness = tweened(0, {
+		duration: 800,
+		easing: quadOut
+	});
+
+	const uniforms = {
 		time: { value: time },
-		opacity: { value: 0 }
+		glitchiness: { value: $tweenedGlitchiness }
 	};
 
-	useFrame(({ clock }) => {
-		time = clock.getElapsedTime();
-	});
-
-	const tweenedOpacity = tweened(0, {
-		duration: 800,
-		easing: quadOut
+	useFrame((_, delta) => {
+		time += delta;
 	});
 
 	$: if ($musicStarted) {
-		$tweenedOpacity = 1;
+		time = 0;
+		$tweenedGlitchiness = 1;
 	} else {
-		$tweenedOpacity = 0;
+		$tweenedGlitchiness = 0;
 	}
-
-	let y = 8;
-
-	$: if ($musicStarted) {
-		y = 12;
-	} else {
-		y = 8;
-	}
-
-	const tweenedY = tweened(y, {
-		duration: 800,
-		easing: quadOut
-	});
-
-	$: $tweenedY = y;
 </script>
 
-<T.Mesh
-	rotation={[$swordRotation, $swordRotation, $swordRotation]}
-	scale={$tweenedOpacity + 0.1}
-	position={[0, $tweenedY, 0]}
->
+<T.Mesh rotation={[$swordRotation, $swordRotation, $swordRotation]}>
 	<T.SphereGeometry args={[-64 * 10, 32]} />
 	<T.ShaderMaterial
 		{vertexShader}
 		{fragmentShader}
 		{uniforms}
-		transparent
 		uniforms.time.value={time + $volume * 8}
-		uniforms.opacity.value={$tweenedOpacity}
+		uniforms.glitchiness.value={$tweenedGlitchiness}
 	/>
 </T.Mesh>

@@ -1,6 +1,6 @@
 varying vec2 vUv;
 uniform float time;
-uniform float opacity;
+uniform float glitchiness;
 
 vec3 palette( float t ) {
     vec3 a = vec3(0.5, 0.5, 0.5);
@@ -11,7 +11,9 @@ vec3 palette( float t ) {
     return a + b*cos( 6.28318*(c*t+d) );
 }
 
-void main() {	
+void main() {
+    vec3 initialColor = vec3(0.125, 0.125, 0.5);
+
 	vec2 uv = (vUv - 0.5)*5.;
 	uv.x = fract(uv.x * 2.) - 0.5;
 
@@ -34,5 +36,5 @@ void main() {
         finalColor += col * d;
     }
     
-    gl_FragColor = vec4(finalColor, opacity);
+    gl_FragColor = vec4(mix(initialColor, finalColor, glitchiness), 1.0);
 }

@@ -7,7 +7,8 @@
 	import { AudioListener } from "@threlte/extras";
 	import { playerController } from "$lib/stores/playerController";
 	import { UI } from "$lib/stores/UI";
-	import { playerPosition } from "$lib/stores/playerPosition";
+	import { UUID } from "$lib/stores/UUID";
+	import { broadcast } from "$lib/utils/broadcast";
 
 	export let position: [number, number, number];
 
@@ -89,7 +90,11 @@
 		}
 
 		rigitBodyTranslation = rigidBody.translation();
-		$playerPosition = [rigitBodyTranslation.x, rigitBodyTranslation.y, rigitBodyTranslation.z];
+
+		broadcast({
+			action: "setUserPosition",
+			payload: { UUID: $UUID, position: [rigitBodyTranslation.x, rigitBodyTranslation.y, rigitBodyTranslation.z] }
+		});
 	});
 </script>
 
