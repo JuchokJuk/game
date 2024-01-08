@@ -83,14 +83,8 @@
 		scale={[1 + $volume, 1 + $volume, 1 + $volume]}
 		on:click={toggle}
 	>
-		<T.Mesh
-			geometry={gltf.nodes.Sword_mesh.geometry}
-			material={gltf.materials.Metal}
-		/>
-		<T.Mesh
-			geometry={gltf.nodes.Sword_mesh_1.geometry}
-			material={gltf.materials.Handle}
-		/>
+		<T.Mesh geometry={gltf.nodes.Sword_mesh.geometry} material={gltf.materials.Metal} />
+		<T.Mesh geometry={gltf.nodes.Sword_mesh_1.geometry} material={gltf.materials.Handle} />
 
 		{#if $musicStarted}
 			<SwordSound />

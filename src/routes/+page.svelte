@@ -82,7 +82,7 @@
 	</div>
 {/if}
 
-<Multiplayer/>
+<Multiplayer />
 
 <style lang="scss">
 	@import "$styles/colors";
