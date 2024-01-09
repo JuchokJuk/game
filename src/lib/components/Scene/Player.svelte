@@ -110,7 +110,7 @@
 				<AudioListener />
 			{/if}
 		</T.PerspectiveCamera>
-		<Collider shape={"capsule"} args={[0.5, 0.5]} />
+		<Collider shape={"capsule"} args={[0.5, 0.5]} friction={0}/>
 
 		<T.Group position.y={-0.875}>
 			<Collider

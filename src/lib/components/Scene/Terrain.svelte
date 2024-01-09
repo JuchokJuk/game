@@ -23,7 +23,7 @@
 </script>
 
 {#await models then [terrain, _grassSimple, wall]}
-	<AutoColliders shape="trimesh">
+	<AutoColliders shape="trimesh" friction={0}>
 		<T.Mesh
 			geometry={terrain.nodes.Magic_stone.geometry}
 			material={terrain.materials["Magic stone"]}
@@ -46,7 +46,7 @@
 		<GrassBlade />
 	</T.Mesh>
 
-	<AutoColliders shape="trimesh">
+	<AutoColliders shape="trimesh" friction={0}>
 		<T.Mesh geometry={wall.nodes.Cylinder.geometry} />
 	</AutoColliders>
 {/await}
