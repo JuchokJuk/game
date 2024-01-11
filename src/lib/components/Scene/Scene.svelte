@@ -6,13 +6,13 @@
 	import { SphereGeometry } from "three";
 	import type { Camera } from "three";
 
-	// import grain from "./simpleShaders/grain.glsl?raw";
-	// import chromaticAberration from "./simpleShaders/chromaticAberration.glsl?raw";
+	import grain from "./simpleShaders/grain.glsl?raw";
+	import chromaticAberration from "./simpleShaders/chromaticAberration.glsl?raw";
 
 	import { T, useThrelte } from "@threlte/core";
 	import { useRender } from "@threlte/core";
 
-	import { EffectComposer, EffectPass, RenderPass, BloomEffect } from "postprocessing";
+	import { EffectComposer, EffectPass, RenderPass, BloomEffect, Effect } from "postprocessing";
 	import Sword from "./Sword/Sword.svelte";
 	import { renderer as rendererStore } from "$lib/stores/renderer";
 	import Player from "./Player.svelte";
@@ -52,8 +52,8 @@
 				})
 			)
 		);
-		// composer.addPass(new EffectPass(camera, new Effect("custom", grain)));
-		// composer.addPass(new EffectPass(camera, new Effect("custom", chromaticAberration)));
+		composer.addPass(new EffectPass(camera, new Effect("custom", grain)));
+		composer.addPass(new EffectPass(camera, new Effect("custom", chromaticAberration)));
 	}
 
 	$: setupEffectComposer($camera);
