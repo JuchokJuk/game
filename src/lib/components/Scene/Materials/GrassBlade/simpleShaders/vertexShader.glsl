@@ -1,6 +1,6 @@
 varying vec2 vUv;
 varying vec3 position_;
-uniform float time;
+uniform float windAnimationTime;
 attribute vec2 simpleUV;
 
 #define TWOPI 6.28318530718
@@ -92,7 +92,7 @@ void main() {
   vec2 coord = position.xz;
   
   float speed = 0.1;
-  float noiseTime = time * speed;
+  float noiseTime = windAnimationTime * speed;
 
   float noiseScale = 0.016;
   float noiseStrength = 0.4;

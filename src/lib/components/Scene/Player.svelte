@@ -93,7 +93,10 @@
 
 		broadcast({
 			action: "setUserPosition",
-			payload: { UUID: $UUID, position: [rigitBodyTranslation.x, rigitBodyTranslation.y, rigitBodyTranslation.z] }
+			payload: {
+				UUID: $UUID,
+				position: [rigitBodyTranslation.x, rigitBodyTranslation.y, rigitBodyTranslation.z]
+			}
 		});
 	});
 </script>
@@ -110,7 +113,7 @@
 				<AudioListener />
 			{/if}
 		</T.PerspectiveCamera>
-		<Collider shape={"capsule"} args={[0.5, 0.5]} friction={0}/>
+		<Collider shape={"capsule"} args={[0.5, 0.5]} friction={0} />
 
 		<T.Group position.y={-0.875}>
 			<Collider

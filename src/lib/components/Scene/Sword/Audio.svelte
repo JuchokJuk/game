@@ -12,7 +12,7 @@
 	$: if (audio) audio.getOutput().connect(analyser);
 	const pcmData = new Float32Array(analyser.fftSize);
 
-	const smoothVolume = new SecondOrderDynamics(8, 1, 0);
+	const smoothVolume = new SecondOrderDynamics(4, 1, 0);
 
 	useFrame((_ctx, delta) => {
 		if (!audio) return;
@@ -21,8 +21,8 @@
 		for (const amplitude of pcmData) {
 			sumSquares += amplitude * amplitude;
 		}
-		smoothVolume.update(delta, Math.sqrt(sumSquares / pcmData.length));
-		$volume = smoothVolume.value;
+
+		$volume = smoothVolume.update(delta, Math.sqrt(sumSquares / pcmData.length));
 	});
 </script>
 

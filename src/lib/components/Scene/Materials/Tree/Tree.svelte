@@ -1,33 +1,62 @@
 <script lang="ts">
-	import { T, useFrame } from "@threlte/core";
+	import { T, useFrame, useLoader } from "@threlte/core";
 
-	import { ShaderLib, UniformsUtils } from "three";
+	import { SRGBColorSpace, TextureLoader } from "three";
 
-	import fragmentShader from "./defaultShaders/fragmentShader.glsl?raw";
-	import vertexShader from "./defaultShaders/vertexShader.glsl?raw";
+	import fragmentShader from "./simpleShaders/fragmentShader.glsl?raw";
+	import vertexShader from "./simpleShaders/vertexShader.glsl?raw";
 	import { volume } from "$lib/stores/volume";
+	import { musicStarted } from "$lib/stores/musicStarted";
+	import { quadOut } from "svelte/easing";
+	import { tweened } from "svelte/motion";
 
 	let time = 0;
 
-	let uniforms = UniformsUtils.merge([
-		ShaderLib.standard.uniforms,
-		{
-			roughness: { value: 1 },
-			metalness: { value: 0 },
-			time: { value: time }
-		}
-	]);
+	const tweenedGlitchiness = tweened(0, {
+		duration: 3200,
+		easing: quadOut
+	});
 
-	useFrame(({ clock }) => {
-		time = clock.getElapsedTime();
+	$: if ($musicStarted) {
+		time = 0;
+		$tweenedGlitchiness = 1;
+	} else {
+		$tweenedGlitchiness = 0;
+	}
+
+	let uniforms: { [key: string]: any };
+
+	const texture = useLoader(TextureLoader).load("models/Terrain denoised/Trees baked.png");
+	const glitchedTexture = useLoader(TextureLoader).load("models/Terrain glitched/Trees baked.png");
+
+	const textures = Promise.all([texture, glitchedTexture]);
+
+	textures.then(([texture, glitchedTexture]) => {
+		texture.flipY = false;
+		texture.colorSpace = SRGBColorSpace;
+
+		glitchedTexture.flipY = false;
+		glitchedTexture.colorSpace = SRGBColorSpace;
+		
+		uniforms = {
+			time: { value: time },
+			treesTexture: { value: texture },
+			glitchedTexture: {value: glitchedTexture},
+			glitchiness: { value: $tweenedGlitchiness }
+		};
+	});
+
+	useFrame((_, delta) => {
+		time += delta;
 	});
 </script>
 
-<T.ShaderMaterial
-	{vertexShader}
-	{fragmentShader}
-	{uniforms}
-	uniforms.time.value={time + $volume * 2}
-	fog
-	lights
-/>
+{#if uniforms}
+	<T.ShaderMaterial
+		{vertexShader}
+		{fragmentShader}
+		{uniforms}
+		uniforms.time.value={time + $volume * 2}
+		uniforms.glitchiness.value={$tweenedGlitchiness}
+	/>
+{/if}

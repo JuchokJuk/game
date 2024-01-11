@@ -5,7 +5,7 @@ export type User = {
 	UUID: string;
 	peerUUID: string;
 	position: [number, number, number];
-	connection?: DataConnection
+	connection?: DataConnection;
 };
 
 export const users = writable<User[]>([]);

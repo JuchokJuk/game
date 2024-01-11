@@ -18,7 +18,7 @@ void main() {
 	uv.x = fract(uv.x * 2.) - 0.5;
 
     vec2 uv0 = uv;
-    vec3 finalColor = vec3(0.0625, 0.25, 0.25);
+    vec3 finalColor = vec3(0.0, 0.0, 0.0);;
 	finalColor *= 0.2;
     
     for (float i = 0.0; i < 8.0; i++) {

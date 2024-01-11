@@ -42,8 +42,8 @@
 			user.position = data.position;
 			$users = $users;
 		},
-		toggleMusic: (musicStarted: boolean) => {
-			$musicStarted = musicStarted;
+		toggleMusic: (data: boolean) => {
+			$musicStarted = data;
 		}
 	};
 

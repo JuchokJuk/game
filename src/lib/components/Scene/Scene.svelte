@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Light from "./Light.svelte";
 	import Terrain from "./Terrain.svelte";
-	import Fireflies from "./Fireflies/Fireflies.svelte";
+	import Fireflies from "./Fireflies.svelte";
 	import Sky from "./Sky/Sky.svelte";
-	import { Color, SphereGeometry } from "three";
+	import { SphereGeometry } from "three";
 	import type { Camera } from "three";
 
 	// import grain from "./simpleShaders/grain.glsl?raw";
@@ -75,7 +75,7 @@
 	</Float>
 {/each}
 
-<Player position={[0, 0, 28]} />
+<Player position={[-20, 0, 20]} />
 <Terrain />
 <Fireflies />
 <Light />

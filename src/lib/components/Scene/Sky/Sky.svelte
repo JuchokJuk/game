@@ -16,6 +16,13 @@
 		easing: quadOut
 	});
 
+	$: if ($musicStarted) {
+		time = 0;
+		$tweenedGlitchiness = 1;
+	} else {
+		$tweenedGlitchiness = 0;
+	}
+
 	const uniforms = {
 		time: { value: time },
 		glitchiness: { value: $tweenedGlitchiness }
@@ -24,13 +31,6 @@
 	useFrame((_, delta) => {
 		time += delta;
 	});
-
-	$: if ($musicStarted) {
-		time = 0;
-		$tweenedGlitchiness = 1;
-	} else {
-		$tweenedGlitchiness = 0;
-	}
 </script>
 
 <T.Mesh rotation={[$swordRotation, $swordRotation, $swordRotation]}>

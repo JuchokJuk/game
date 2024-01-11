@@ -5,24 +5,52 @@
 	import fragmentShader from "./simpleShaders/fragmentShader.glsl?raw";
 	import vertexShader from "./simpleShaders/vertexShader.glsl?raw";
 	import { volume } from "$lib/stores/volume";
+	import { tweened } from "svelte/motion";
+	import { quadOut } from "svelte/easing";
+	import { musicStarted } from "$lib/stores/musicStarted";
 
 	let time = 0;
+	let windAnimationTime = 0;
+
+	const tweenedGlitchiness = tweened(0, {
+		duration: 6400,
+		easing: quadOut
+	});
+
+	$: if ($musicStarted) {
+		time = 0;
+		$tweenedGlitchiness = 1;
+	} else {
+		$tweenedGlitchiness = 0;
+	}
+
 	let uniforms: { [key: string]: any };
 
 	const texture = useLoader(TextureLoader).load("models/Terrain denoised/Grass baked.png");
+	const glitchedTexture = useLoader(TextureLoader).load("models/Terrain glitched/Grass baked.png");
 
-	texture.then((texture) => {
+	const textures = Promise.all([texture, glitchedTexture]);
+
+	textures.then(([texture, glitchedTexture]) => {
 		texture.flipY = false;
 		texture.colorSpace = SRGBColorSpace;
+		
+		glitchedTexture.flipY = false;
+		glitchedTexture.colorSpace = SRGBColorSpace;
+		
 		uniforms = {
 			time: { value: time },
-			sound: { value: 0 },
-			grassTexture: { value: texture }
+			windAnimationTime: { value: windAnimationTime },
+			glitchiness: { value: $tweenedGlitchiness },
+			sound: { value: $volume * 2 },
+			grassTexture: { value: texture },
+			glitchedTexture: {value: glitchedTexture},
 		};
 	});
 
-	useFrame(({ clock }) => {
-		time = clock.getElapsedTime();
+	useFrame(({ clock }, delta) => {
+		time += delta;
+		windAnimationTime = clock.getElapsedTime();
 	});
 </script>
 
@@ -33,6 +61,8 @@
 		{fragmentShader}
 		{uniforms}
 		uniforms.time.value={time}
+		uniforms.windAnimationTime.value={windAnimationTime}
 		uniforms.sound.value={$volume * 2}
+		uniforms.glitchiness.value={$tweenedGlitchiness}
 	/>
 {/if}
