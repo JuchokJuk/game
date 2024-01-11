@@ -39,6 +39,8 @@
 		// 		})
 		// 	)
 		// );
+		composer.addPass(new EffectPass(camera, new Effect("custom", chromaticAberration)));
+		composer.addPass(new EffectPass(camera, new Effect("custom", grain)));
 		composer.addPass(
 			new EffectPass(
 				camera,
@@ -52,8 +54,6 @@
 				})
 			)
 		);
-		composer.addPass(new EffectPass(camera, new Effect("custom", grain)));
-		composer.addPass(new EffectPass(camera, new Effect("custom", chromaticAberration)));
 	}
 
 	$: setupEffectComposer($camera);

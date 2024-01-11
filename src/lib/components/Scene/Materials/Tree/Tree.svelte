@@ -40,7 +40,7 @@
 		
 		uniforms = {
 			time: { value: time },
-			treesTexture: { value: texture },
+			initialTexture: { value: texture },
 			glitchedTexture: {value: glitchedTexture},
 			glitchiness: { value: $tweenedGlitchiness }
 		};

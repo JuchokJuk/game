@@ -43,7 +43,7 @@
 			windAnimationTime: { value: windAnimationTime },
 			glitchiness: { value: $tweenedGlitchiness },
 			sound: { value: $volume * 2 },
-			grassTexture: { value: texture },
+			initialTexture: { value: texture },
 			glitchedTexture: {value: glitchedTexture},
 		};
 	});

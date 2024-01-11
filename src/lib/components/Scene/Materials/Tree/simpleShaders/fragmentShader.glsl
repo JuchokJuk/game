@@ -1,7 +1,7 @@
 varying vec2 vUv;
 varying vec3 position_;
 uniform float time;
-uniform sampler2D treesTexture;
+uniform sampler2D initialTexture;
 uniform sampler2D glitchedTexture;
 uniform float glitchiness;
 
@@ -95,7 +95,7 @@ vec3 palette( float t ) {
 }
 
 void main() {	
-	vec4 initialColor = texture2D(treesTexture, vUv);
+	vec4 initialColor = texture2D(initialTexture, vUv);
 	vec4 glitchedColor = texture2D(glitchedTexture, vUv);
 
 	vec2 uv = (position_.yz)*0.01;

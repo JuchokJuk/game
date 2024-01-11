@@ -1,4 +1,4 @@
-uniform sampler2D grassTexture;
+uniform sampler2D initialTexture;
 uniform sampler2D glitchedTexture;
 varying vec2 vUv;
 uniform float time;
@@ -96,7 +96,7 @@ vec3 palette( float t ) {
 }
 
 void main() {	
-    vec4 initialColor = texture2D(grassTexture, vUv);
+    vec4 initialColor = texture2D(initialTexture, vUv);
     vec4 glitchedColor = texture2D(glitchedTexture, vUv);
 
 	vec2 uv = (position_.xz - 0.5) * 0.008;
